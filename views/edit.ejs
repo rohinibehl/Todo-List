@@ -1,0 +1,51 @@
+<% layout( 'layout' ) -%>
+
+ <div class="jumbotron text-center">
+      <h1>I'm a Todo-aholic with <span class="label label-info"><%= todos.length %></span> Things To Do</h1>
+    </div>
+
+<div id="list">
+ 
+
+<% todos.forEach( function ( todo ){ %>
+<input type="checkbox" ng-click="/update/<%= todo._id %>" ng-model="todo.done" style = "float:left; margin-left:-20px; margin-top:19px; padding-right:4px" />
+
+  <% if( todo._id == current ){ %>
+  <div class="item-new">
+  <% }else{ %>
+  <div class="item">
+  <% } %>
+
+    <% if( todo._id == current ){ %>
+    <form class="update-form" action="/update/<%= todo._id %>" method="post" accept-charset="utf-8">
+      <input class="update-input" type="text" name="content" value="<%= todo.content %>" />
+    </form>
+    <% }else{ %>
+    <a class="update-link" href="/edit/<%= todo._id %>" title="Update this todo item"><%= todo.content %></a>
+    <% } %>
+
+    <% if( todo._id == current ){ %>
+    <a class="del-btn-edit" href="/destroy/<%= todo._id %>" title="Delete this todo item">Delete</a>
+    <% }else{ %>
+    <a class="del-btn" href="/destroy/<%= todo._id %>" title="Delete this todo item">Delete</a>
+    <% } %>
+  </div>
+<% }); %>
+
+ <form action="/create" method="post" accept-charset="utf-8">
+    <div class="item-new">
+      <input class="input" type="text" name="content" />
+    </div>
+  </form>
+
+</div>
+
+   <div class="footer">
+
+      <p> App created by Rohini Behl.</p>
+      <p> Adopted from the tutorial at <a href="http://scotch.io/tutorials/javascript/creating-a-single-page-todo-app-with-node-and-angular">scotch.io.com</a>.</p>
+
+  </div>
+
+
+

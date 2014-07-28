@@ -1,0 +1,109 @@
+<% layout( 'layout' ) -%>
+
+ <div class="jumbotron text-center">
+      <h1>I'm a Todo-aholic with <span class="label label-info"><%= todos.length %></span> Things To Do</h1>
+    </div>
+    <script type="text/javscript">
+    var array = [];
+    </script>
+
+<div id="list">
+
+<% todos.forEach( function ( todo ){ %>
+
+  <input type="checkbox" style = "float:left; margin-left:-20px; margin-top:19px; padding-right:4px" name ="" onChange= persistCheckBox(this); id="<%= todo._id %>" /><a href="/update/<%= todo._id%>"></a>
+
+
+  <div class="item" item="<%=todo._id%>item" >
+  	
+   
+  
+    <a class="update-link" href="/edit/<%= todo._id %>" title="Update this todo item"><%= todo.content %></a>
+    <a class="del-btn" href="/destroy/<%= todo._id %>" title="Delete this todo item">Delete</a>
+    
+  </div>
+
+
+  <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.5/jquery.min.js"></script>
+  <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/jquery-cookie/1.4.1/jquery.cookie.js"></script>
+
+<% }); %>
+
+ <form action="/create" method="post" accept-charset="utf-8">
+    <div class="item-new">
+      <input class="input" type="text" name="content" />
+    </div>
+  </form>
+
+</div>
+
+  <script type= "text/javascript">
+
+function restorePersistedCheckBoxes() {
+    var aStatus = getPersistedCheckStatus();
+    for(var i = 0; i < aStatus.length; i++) {
+        var aPair = aStatus[i].split(':');
+        var el = document.getElementById(aPair[0]);
+        if(el) {
+            el.checked = aPair[1] == '1';
+        }
+    }
+}
+
+function persistCheckBox(el) {
+    var found = false;
+    var currentStateFragment = el.id + ':' + (el.checked ? '1' : '0');
+    var aStatus = getPersistedCheckStatus();
+    for(var i = 0; i < aStatus.length; i++) {
+        var aPair = aStatus[i].split(':');
+        if(aPair[0] == el.id) {
+            aStatus[i] = currentStateFragment;
+            found = true;
+            break;
+        }
+    }
+    if(!found) {
+        aStatus.push(currentStateFragment);
+    }
+    setPersistedCheckStatus(aStatus);
+}
+
+function getPersistedCheckStatus() {
+    var stored = getPersistenceCookie();
+    return stored.split(',');
+}
+
+function setPersistedCheckStatus(aStatus) {
+    setPersistenceCookie(aStatus.join(','));
+}
+
+function getPersistenceCookie()
+{
+  var aCookie = document.cookie.split('; ');
+  for (var i=0; i < aCookie.length; i++)
+  {
+    var aCrumb = aCookie[i].split('=');
+    if ('JS_PERSISTENCE_COOKIE' == aCrumb[0]) 
+      return unescape(aCrumb[1]);
+  }
+  return '';
+}
+
+function setPersistenceCookie(sValue) {
+    document.cookie = 'JS_PERSISTENCE_COOKIE=' + escape(sValue);
+}
+
+function clearPersistenceCookie() {
+    document.cookie = 'JS_PERSISTENCE_COOKIE=' +
+                      ';expires=Fri, 31 Dec 1999 23:59:59 GMT;';
+} 
+
+
+    </script>
+
+<div class="footer">
+
+      <p> App created by Rohini Behl.</p>
+      <p> Adopted from the tutorial at <a href="http://scotch.io/tutorials/javascript/creating-a-single-page-todo-app-with-node-and-angular">scotch.io.com</a>.</p>
+
+  </div>

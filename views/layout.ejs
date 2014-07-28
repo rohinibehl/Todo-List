@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title><%= title %></title>
+    <link rel='stylesheet' href='/stylesheets/screen.css' />
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+  
+    <!--[if lt IE 9]>
+    <script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css"><!-- load bootstrap -->
+  <link rel="stylesheet" href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.min.css">
+    <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.2.16/angular.min.js"></script>
+  </head>
+  <body onload="restorePersistedCheckBoxes();">
+     <!--  <div class="jumbotron text-center">
+      <h1>I'm a Todo-aholic with <span class="label label-info">{{ todos.length }}</span> Things To Do</h1>
+    </div> -->
+    <div id="layout">
+      <%- body %>
+      <div id="layout-footer"></div>
+    </div>
+    
+    <script src="/javascripts/ga.js"></script>
+  </body>
+</html>
