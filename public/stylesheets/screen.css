@@ -99,10 +99,12 @@ body {
 
 /* line 32, ../sass/screen.sass */
 #list {
-  width: 283px;
-  margin-left:415px;
+  width: 500px;
+  margin-right:auto;
+  margin-left:auto;
   padding: 20px 0 15px;
-  position: relative;
+  position: static;
+  display: block;
 }
 
 .footer {
